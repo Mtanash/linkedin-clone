@@ -12,6 +12,7 @@ import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import signInMutation from "@/mutations/signInMutation";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -22,16 +23,14 @@ const SignIn = () => {
   const dispatch = useAppDispatch();
 
   const { isLoading, error, mutate, data } = useMutation({
-    mutationFn: (data: { email: string; password: string }) => {
-      return axiosInstance.post("/users/login", data);
-    },
+    mutationFn: signInMutation,
     onSuccess(data, variables, context) {
       setLoginError("");
-      const user = data.data.data.user;
-      const accessToken = data.data.data.accessToken;
+      const user = data.data.data;
+      // const accessToken = data.data.data.accessToken;
       // set current user data
       dispatch(setCurrentUser(user));
-      dispatch(setAccessToken(accessToken));
+      // dispatch(setAccessToken(accessToken));
 
       // navigate to feed page
       router.push("/Feed");

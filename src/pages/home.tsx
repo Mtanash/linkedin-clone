@@ -5,7 +5,6 @@ import { MdPeople } from "react-icons/md";
 import { RxVideo } from "react-icons/rx";
 import { BsBriefcaseFill } from "react-icons/bs";
 import Link from "next/link";
-import useSWR from "swr";
 import SignIn from "@/components/SignIn";
 
 const links = [

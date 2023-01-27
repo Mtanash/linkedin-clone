@@ -10,7 +10,7 @@ const Avatar = ({ avatarUrl, name, size = 25 }: IAvatar) => {
   if (!avatarUrl)
     return (
       <div className={`w-[${size}px] h-[${size}px] bg-slate-300 rounded-full`}>
-        {name ? name[0] : ""}
+        {name ? name[0].toUpperCase() : ""}
       </div>
     );
   return (

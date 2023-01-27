@@ -28,6 +28,9 @@ module.exports = {
         // font clrs
         "main-fnt-clr": "#000000e6",
         "sidebar-bg-hvr": "#00000014",
+
+        // icons
+        "blue-icon": "#0000ff",
       },
     },
   },

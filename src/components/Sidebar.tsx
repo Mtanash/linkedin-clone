@@ -9,7 +9,7 @@ const Sidebar = () => {
   const currentUser = useAppSelector(selectCurrentUser);
 
   return (
-    <aside className="flex-[0.2] bg-white rounded-lg overflow-hidden">
+    <div className="flex-[0.2] bg-white rounded-lg overflow-hidden border-[1px] border-gray-300">
       <div className=" flex flex-col items-center pt-8">
         <Avatar
           avatarUrl={currentUser?.avatar}
@@ -46,7 +46,7 @@ const Sidebar = () => {
           <p>My items</p>
         </Link>
       </div>
-    </aside>
+    </div>
   );
 };
 
