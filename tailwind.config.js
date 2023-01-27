@@ -23,6 +23,11 @@ module.exports = {
         "linkedin-blue": "#2977c9",
         "linkedin-blue-hvr": "#006097",
         "search-bg": "#eef3f8",
+        "main-bg-clr": "#f3f2ef",
+
+        // font clrs
+        "main-fnt-clr": "#000000e6",
+        "sidebar-bg-hvr": "#00000014",
       },
     },
   },

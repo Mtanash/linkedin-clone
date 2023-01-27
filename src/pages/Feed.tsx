@@ -1,9 +1,12 @@
 import Layout from "@/components/Layout";
+import Sidebar from "@/components/Sidebar";
 
 const Feed = () => {
   return (
     <Layout>
-      <h1>Feed</h1>
+      <section className="container mx-auto px-5 flex items-start">
+        <Sidebar />
+      </section>
     </Layout>
   );
 };
