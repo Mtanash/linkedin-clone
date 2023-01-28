@@ -19,7 +19,7 @@ const SignIn = () => {
     mutationFn: signInMutation,
     onSuccess(data, variables, context) {
       setLoginError("");
-      const user = data.data.data;
+      const user = data.data;
       // const accessToken = data.data.data.accessToken;
       // set current user data
       dispatch(setCurrentUser(user));

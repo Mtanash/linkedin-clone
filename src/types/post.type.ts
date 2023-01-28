@@ -8,6 +8,7 @@ type Post = {
   createdAt: string;
   updatedAt: string;
   user: PostUser;
+  likes: string[];
 };
 
 export default Post;

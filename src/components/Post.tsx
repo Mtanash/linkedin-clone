@@ -11,8 +11,8 @@ interface IPost {
 }
 
 const Post = ({ post }: IPost) => {
-  const { createdAt, text, user, updatedAt, _id: postId } = post;
-  const { _id: userId, firstName, lastName, avatar } = user;
+  const { createdAt, text, user, _id: postId } = post;
+  const { firstName, lastName, avatar } = user;
 
   return (
     <CardLayout>
@@ -26,7 +26,7 @@ const Post = ({ post }: IPost) => {
             {firstName} {lastName}
           </Link>
           <span className="font-semibold text-xs flex items-center text-nav-light-gray">
-            {moment(moment.utc(updatedAt)).local().fromNow(true)} .{" "}
+            {moment(moment.utc(createdAt)).local().fromNow(true)} .
             <BiWorld className="w-4 h-4" />
           </span>
         </div>
@@ -36,7 +36,7 @@ const Post = ({ post }: IPost) => {
         <p>{text}</p>
       </div>
 
-      <PostActions />
+      <PostActions postId={postId} />
     </CardLayout>
   );
 };

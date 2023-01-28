@@ -17,7 +17,7 @@ const Feed = () => {
     <Layout>
       <section className="container mx-auto px-5 flex items-start mt-8 gap-5">
         <Sidebar />
-        <MainFeed posts={data?.data.data} />
+        <MainFeed posts={data?.data} />
       </section>
       <ToastContainer
         position="top-center"

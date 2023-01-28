@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import addPostMutation from "@/mutations/addPostMutation";
 import OverlaySpinner from "./OverlaySpinner";
 import toastCenter from "@/toast/toast";
+import Post from "@/types/post.type";
 
 interface IAddPostModal {
   addPostModalIsOpen: boolean;
@@ -50,8 +51,14 @@ const AddPostModal = ({
     mutationFn: addPostMutation,
     onSuccess(data) {
       handleCloseAddPostModal();
+      // queryClient.setQueryData(["posts"], (oldData: any) => {
+      //   const returnedData = oldData;
+      //   returnedData.data = [...returnedData.data, data.data];
+      //   return returnedData;
+      // });
       queryClient.invalidateQueries({ queryKey: ["posts"] });
       toastCenter.success("Post created successfully");
+      setPostText("");
     },
     onError(error, variables, context) {
       handleCloseAddPostModal();
