@@ -4,6 +4,8 @@ import MainFeed from "@/components/MainFeed";
 import Sidebar from "@/components/Sidebar";
 import allPostsQuery from "@/queries/allPostsQuery";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Feed = () => {
   const { data } = useQuery({
@@ -17,6 +19,18 @@ const Feed = () => {
         <Sidebar />
         <MainFeed posts={data?.data.data} />
       </section>
+      <ToastContainer
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme="light"
+      />
     </Layout>
   );
 };

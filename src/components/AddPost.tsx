@@ -6,6 +6,8 @@ import { BsFillPlayBtnFill } from "react-icons/bs";
 import { GoBriefcase } from "react-icons/go";
 import { MdArticle } from "react-icons/md";
 import CardLayout from "./CardLayout";
+import { useState } from "react";
+import AddPostModal from "./AddPostModal";
 
 const addPostButtons = [
   {
@@ -37,8 +39,20 @@ const addPostButtons = [
 const AddPost = () => {
   const currentUser = useAppSelector(selectCurrentUser);
 
+  const [addPostModalIsOpen, setAddPostModalIsOpen] = useState(false);
+
+  const handleStartPostClick = () => {
+    setAddPostModalIsOpen(true);
+  };
+
+  const handleCloseAddPostModal = () => setAddPostModalIsOpen(false);
+
   return (
     <CardLayout>
+      <AddPostModal
+        addPostModalIsOpen={addPostModalIsOpen}
+        handleCloseAddPostModal={handleCloseAddPostModal}
+      />
       <div className="flex items-center gap-3 p-4 pb-1">
         <div>
           <Avatar
@@ -47,7 +61,10 @@ const AddPost = () => {
             name={currentUser?.firstName}
           />
         </div>
-        <button className="rounded-full border-[1px] p-2 py-3 outline-none border-nav-light-gray w-full flex justify-start items-center text-nav-light-gray font-semibold hover:bg-light-gray-bg transition-colors">
+        <button
+          className="rounded-full border-[1px] p-2 py-3 outline-none border-nav-light-gray w-full flex justify-start items-center text-nav-light-gray font-semibold hover:bg-light-gray-bg transition-colors"
+          onClick={handleStartPostClick}
+        >
           Start a post
         </button>
       </div>

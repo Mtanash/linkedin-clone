@@ -4,6 +4,7 @@ import Avatar from "./Avatar";
 import Link from "next/link";
 import moment from "moment";
 import { BiWorld } from "react-icons/bi";
+import PostActions from "./PostActions";
 
 interface IPost {
   post: Post;
@@ -34,6 +35,8 @@ const Post = ({ post }: IPost) => {
       <div className="p-4">
         <p>{text}</p>
       </div>
+
+      <PostActions />
     </CardLayout>
   );
 };

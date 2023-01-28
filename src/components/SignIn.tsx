@@ -1,13 +1,7 @@
 import axiosInstance from "@/api/axiosInstance";
 import { useAppDispatch } from "@/store/hooks";
 import { setAccessToken, setCurrentUser } from "@/features/auth/authSlice";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -18,7 +12,6 @@ const SignIn = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [loginError, setLoginError] = useState("");
 
-  const queryClient = useQueryClient();
   const router = useRouter();
   const dispatch = useAppDispatch();
 

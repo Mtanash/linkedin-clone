@@ -18,7 +18,7 @@ const PostsList = ({ posts }: IPostsList) => {
       </CardLayout>
     );
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       {posts.map((post) => {
         return <Post key={post._id} post={post} />;
       })}

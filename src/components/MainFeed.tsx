@@ -8,7 +8,7 @@ interface IMainFeed {
 
 const MainFeed = ({ posts }: IMainFeed) => {
   return (
-    <main className="flex-[0.5] flex flex-col gap-5">
+    <main className="flex-[0.5] flex flex-col gap-5 mb-5">
       <AddPost />
       <PostsList posts={posts} />
     </main>
