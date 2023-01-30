@@ -7,7 +7,7 @@ import { BsBriefcaseFill } from "react-icons/bs";
 import { TiMessages } from "react-icons/ti";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { selectCurrentUser, setCurrentUser } from "@/features/auth/authSlice";
 import Avatar from "./Avatar";
@@ -53,6 +53,12 @@ const Header = () => {
   const router = useRouter();
 
   const currentUser = useAppSelector(selectCurrentUser);
+
+  useEffect(() => {
+    if (!currentUser) {
+      router.push("/Home");
+    }
+  }, [currentUser, router]);
 
   const handleLinkClick = (name: string) => {
     setActiveTab(name);

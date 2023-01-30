@@ -5,12 +5,24 @@ import Link from "next/link";
 import moment from "moment";
 import { BiWorld } from "react-icons/bi";
 import PostActions from "./PostActions";
+import { useState } from "react";
+import { useAppSelector } from "@/store/hooks";
+import { selectCurrentUser } from "@/features/auth/authSlice";
+import { useRouter } from "next/router";
+import AddComment from "./AddComment";
 
 interface IPost {
   post: Post;
 }
 
 const Post = ({ post }: IPost) => {
+  const currentUser = useAppSelector(selectCurrentUser);
+  const router = useRouter();
+
+  if (!currentUser) router.push("/Home");
+
+  const [showAddComment, setShowAddComment] = useState(false);
+
   const { createdAt, text, user, _id: postId } = post;
   const { firstName, lastName, avatar } = user;
 
@@ -36,7 +48,9 @@ const Post = ({ post }: IPost) => {
         <p>{text}</p>
       </div>
 
-      <PostActions postId={postId} />
+      <PostActions postId={postId} setShowAddComment={setShowAddComment} />
+
+      {showAddComment && <AddComment postId={postId} />}
     </CardLayout>
   );
 };

@@ -4,8 +4,14 @@ import { AiOutlineLike, AiOutlineComment } from "react-icons/ai";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import likePostMutation from "@/mutations/likePostMutation";
 import toastCenter from "@/toast/toast";
+import { useState } from "react";
 
-const PostActions = ({ postId }: { postId: string }) => {
+interface IPostActions {
+  postId: string;
+  setShowAddComment: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const PostActions = ({ postId, setShowAddComment }: IPostActions) => {
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
 
@@ -38,6 +44,10 @@ const PostActions = ({ postId }: { postId: string }) => {
     mutate({ post: postId, user: currentUser._id });
   };
 
+  const handleCommentButtonClick = () => {
+    setShowAddComment(true);
+  };
+
   return (
     <div className="flex items-center gap-1 border-t-[1px] border-gray-100">
       <button
@@ -52,7 +62,10 @@ const PostActions = ({ postId }: { postId: string }) => {
         {postLikedByCurrentUser ? "Liked" : "Like"}
       </button>
 
-      <button className="flex items-center text-lg gap-1 flex-1  justify-center p-2 text-nav-light-gray font-semibold hover:bg-light-gray-bg transition-colors hover:text-pale-black">
+      <button
+        className="flex items-center text-lg gap-1 flex-1  justify-center p-2 text-nav-light-gray font-semibold hover:bg-light-gray-bg transition-colors hover:text-pale-black"
+        onClick={handleCommentButtonClick}
+      >
         <AiOutlineComment className="w-6 h-6" />
         Comment
       </button>
