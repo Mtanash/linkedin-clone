@@ -8,9 +8,10 @@ import { TiMessages } from "react-icons/ti";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useState } from "react";
-import { useAppSelector } from "@/store/hooks";
-import { selectCurrentUser } from "@/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { selectCurrentUser, setCurrentUser } from "@/features/auth/authSlice";
 import Avatar from "./Avatar";
+import { useRouter } from "next/router";
 
 const links = [
   {
@@ -46,11 +47,24 @@ const isActiveTab = (activeTab: string, currentTab: string) => {
 
 const Header = () => {
   const [activeTab, setActiveTab] = useState("Home");
+  const [userMenuIsOpen, setUserMenuIsOpen] = useState(false);
+
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const currentUser = useAppSelector(selectCurrentUser);
 
   const handleLinkClick = (name: string) => {
     setActiveTab(name);
+  };
+
+  const handleAvatarButtonClick = () => {
+    setUserMenuIsOpen(!userMenuIsOpen);
+  };
+
+  const handleLogoutButtonClick = () => {
+    dispatch(setCurrentUser(null));
+    router.push("/Home");
   };
 
   return (
@@ -97,16 +111,31 @@ const Header = () => {
                 </li>
               );
             })}
+            <div className="relative">
+              <button
+                onClick={handleAvatarButtonClick}
+                className="text-sm w-[60px] flex flex-col items-center text-nav-light-gray hover:text-pale-black"
+              >
+                <Avatar
+                  name={currentUser?.firstName}
+                  avatarUrl={currentUser?.avatar}
+                />
+                <span className="flex items-center ">
+                  Me <IoMdArrowDropdown />
+                </span>
+              </button>
 
-            <button className="text-sm w-[60px] flex flex-col items-center text-nav-light-gray hover:text-pale-black">
-              <Avatar
-                name={currentUser?.firstName}
-                avatarUrl={currentUser?.avatar}
-              />
-              <span className="flex items-center ">
-                Me <IoMdArrowDropdown />
-              </span>
-            </button>
+              {userMenuIsOpen && (
+                <div className="absolute bg-white rounded-md shadow-sm border-[1px] border-gray-100 top-[52px]  right-0">
+                  <button
+                    className="p-2 hover:bg-gray-100 my-2 px-8 font-semibold text-gray-500 hover:text-pale-black transition"
+                    onClick={handleLogoutButtonClick}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           </ul>
         </nav>
       </div>

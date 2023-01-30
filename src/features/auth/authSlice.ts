@@ -22,7 +22,7 @@ export const counterSlice = createSlice({
     setAccessToken: (state, action: PayloadAction<string>) => {
       state.accessToken = action.payload;
     },
-    setCurrentUser: (state, action: PayloadAction<User>) => {
+    setCurrentUser: (state, action: PayloadAction<User | null>) => {
       state.currentUser = action.payload;
     },
   },

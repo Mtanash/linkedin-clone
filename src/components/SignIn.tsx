@@ -1,12 +1,17 @@
 import axiosInstance from "@/api/axiosInstance";
-import { useAppDispatch } from "@/store/hooks";
-import { setAccessToken, setCurrentUser } from "@/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+  selectCurrentUser,
+  setAccessToken,
+  setCurrentUser,
+} from "@/features/auth/authSlice";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import signInMutation from "@/mutations/signInMutation";
+import Button from "./Button";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -15,7 +20,15 @@ const SignIn = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const { isLoading, error, mutate, data } = useMutation({
+  const currentUser = useAppSelector(selectCurrentUser);
+
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/Feed");
+    }
+  }, [currentUser, router]);
+
+  const { isLoading, mutate } = useMutation({
     mutationFn: signInMutation,
     onSuccess(data, variables, context) {
       setLoginError("");
@@ -85,12 +98,12 @@ const SignIn = () => {
       >
         Forgot password?
       </Link>
-      <button
-        className="rounded-3xl h-[48px] max-w-[450px] bg-linkedin-blue text-white text-xl transition hover:bg-linkedin-blue-hvr mt-4"
+      <Button
+        label="Sign in"
         type="submit"
-      >
-        Sign in
-      </button>
+        loading={isLoading}
+        className="max-w-[450px]"
+      />
     </form>
   );
 };
