@@ -8,6 +8,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "media.licdn.com",
       },
+      {
+        hostname: "images.unsplash.com",
+        protocol: "https",
+      },
     ],
   },
 };

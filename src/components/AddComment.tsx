@@ -2,20 +2,31 @@ import { useAppSelector } from "@/store/hooks";
 import Avatar from "./Avatar";
 import Button from "./Button";
 import { selectCurrentUser } from "@/features/auth/authSlice";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import addCommentMutation from "@/mutations/addCommentMutation";
 import { useState } from "react";
 
 const AddComment = ({ postId }: { postId: string }) => {
   const currentUser = useAppSelector(selectCurrentUser);
+  const queryClient = useQueryClient();
 
   const [commentText, setCommentText] = useState("");
 
   // TODO: update from mutation response after implementing comments list
   const { mutate, isLoading } = useMutation({
     mutationFn: addCommentMutation,
-    onSuccess() {
+    onSuccess(data) {
       setCommentText("");
+
+      // update comments query data
+      queryClient.setQueryData(["postComments", postId], (oldData: any) => {
+        if (oldData) {
+          const newData = oldData;
+          newData.data = [...newData.data, data.data];
+          return newData;
+        }
+        return oldData;
+      });
     },
   });
 

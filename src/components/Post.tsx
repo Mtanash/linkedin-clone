@@ -10,6 +10,7 @@ import { useAppSelector } from "@/store/hooks";
 import { selectCurrentUser } from "@/features/auth/authSlice";
 import { useRouter } from "next/router";
 import AddComment from "./AddComment";
+import ListComments from "./ListComments";
 
 interface IPost {
   post: Post;
@@ -51,6 +52,8 @@ const Post = ({ post }: IPost) => {
       <PostActions postId={postId} setShowAddComment={setShowAddComment} />
 
       {showAddComment && <AddComment postId={postId} />}
+
+      {showAddComment && <ListComments postId={postId} />}
     </CardLayout>
   );
 };
