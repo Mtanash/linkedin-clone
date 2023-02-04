@@ -11,7 +11,6 @@ const ListComments = ({ postId }: { postId: string }) => {
     queryFn: () => postCommentsQuery(postId),
     queryKey: ["postComments", postId],
     enabled: false,
-    onSuccess(data) {},
   });
 
   useEffect(() => {

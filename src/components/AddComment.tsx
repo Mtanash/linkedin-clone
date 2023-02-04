@@ -12,7 +12,6 @@ const AddComment = ({ postId }: { postId: string }) => {
 
   const [commentText, setCommentText] = useState("");
 
-  // TODO: update from mutation response after implementing comments list
   const { mutate, isLoading } = useMutation({
     mutationFn: addCommentMutation,
     onSuccess(data) {
@@ -21,12 +20,14 @@ const AddComment = ({ postId }: { postId: string }) => {
       // update comments query data
       queryClient.setQueryData(["postComments", postId], (oldData: any) => {
         if (oldData) {
-          const newData = oldData;
+          const newData = { ...oldData };
           newData.data = [...newData.data, data.data];
           return newData;
         }
         return oldData;
       });
+
+      queryClient.invalidateQueries({ queryKey: ["postStats", postId] });
     },
   });
 

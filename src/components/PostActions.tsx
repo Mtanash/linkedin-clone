@@ -8,10 +8,10 @@ import { useState } from "react";
 
 interface IPostActions {
   postId: string;
-  setShowAddComment: React.Dispatch<React.SetStateAction<boolean>>;
+  onCommentButtonClick: () => void;
 }
 
-const PostActions = ({ postId, setShowAddComment }: IPostActions) => {
+const PostActions = ({ postId, onCommentButtonClick }: IPostActions) => {
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
 
@@ -45,7 +45,7 @@ const PostActions = ({ postId, setShowAddComment }: IPostActions) => {
   };
 
   const handleCommentButtonClick = () => {
-    setShowAddComment(true);
+    onCommentButtonClick();
   };
 
   return (

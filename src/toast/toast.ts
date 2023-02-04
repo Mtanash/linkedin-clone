@@ -27,4 +27,4 @@ const toastCenter = {
   },
 };
 
-export default toastCenter;
+export default Object.freeze(toastCenter);

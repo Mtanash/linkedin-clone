@@ -11,6 +11,7 @@ import { selectCurrentUser } from "@/features/auth/authSlice";
 import { useRouter } from "next/router";
 import AddComment from "./AddComment";
 import ListComments from "./ListComments";
+import PostStats from "./PostStats";
 
 interface IPost {
   post: Post;
@@ -23,9 +24,15 @@ const Post = ({ post }: IPost) => {
   if (!currentUser) router.push("/Home");
 
   const [showAddComment, setShowAddComment] = useState(false);
+  const [showCommentsList, setShowCommentsList] = useState(false);
 
   const { createdAt, text, user, _id: postId } = post;
   const { firstName, lastName, avatar } = user;
+
+  const onCommentButtonClick = () => {
+    setShowAddComment(true);
+    setShowCommentsList(true);
+  };
 
   return (
     <CardLayout>
@@ -49,11 +56,14 @@ const Post = ({ post }: IPost) => {
         <p>{text}</p>
       </div>
 
-      <PostActions postId={postId} setShowAddComment={setShowAddComment} />
-
+      <PostStats postId={postId} onCommentsClick={onCommentButtonClick} />
+      <PostActions
+        postId={postId}
+        onCommentButtonClick={onCommentButtonClick}
+      />
       {showAddComment && <AddComment postId={postId} />}
 
-      {showAddComment && <ListComments postId={postId} />}
+      {showCommentsList && <ListComments postId={postId} />}
     </CardLayout>
   );
 };
